@@ -36,7 +36,7 @@ def create_random_flight(date)
     a2 = @airport_list.sample.last
   end
   departure = date + rand(22 * 60).minutes
-  arrival = departure + rand(3 * 60).minutes
+  arrival = departure + (rand(3 * 60) + 60).minutes
   cost = rand(20000..40000)
   Flight.new(
     from: Airport.find_by(code: a1),
@@ -52,13 +52,13 @@ date = DateTime.now()
 t = Time.now
 print "-- seed flights "
 ActiveRecord::Base.transaction do  #speeds up transaction from 17.5s to 1.6s! Wow!
-  30.times do |i|
+  20.times do |i|
     print "."
-    2.times do
+    5.times do
       flight = create_random_flight(date)
       flight.save
     end
-    date.change({day: 1})
+    date = DateTime.now + i.days
   end
 end
 puts "\n   -> #{Time.now - t}"
