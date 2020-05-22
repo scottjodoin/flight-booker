@@ -36,6 +36,8 @@ ActiveRecord::Schema.define(version: 2020_05_21_200519) do
     t.integer "to_id"
     t.integer "cost"
     t.integer "passenger_capacity"
+    t.datetime "departure_time"
+    t.datetime "arrival_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["from_id"], name: "index_flights_on_from_id"
