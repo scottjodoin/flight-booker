@@ -1,0 +1,30 @@
+<h2>Available Flights - <%=
+  "#{params[:search][:from][0..2]} to #{params[:search][:to][0..2]}" +
+  " for #{pluralize(params[:search][:passenger_count], "passenger")}"
+  %>
+  <% unless params[:search][:date].empty? %>
+    <br/>
+    <%= "Date: #{params[:search][:date]}" %>
+  <% end %>
+  </h2>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="4"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @flights.each do |flight| %>
+      <tr>
+        <td><%= flight %></td>
+        <td><%= link_to 'Show', flight %></td>
+        <td><%= link_to 'Book', edit_flight_path(
+          flight,
+          passenger_count:params[:search][:passenger_count]
+          ) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

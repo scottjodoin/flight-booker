@@ -4,7 +4,7 @@ class FlightsController < ApplicationController
   # GET /flights
   # GET /flights.json
   def index
-    @airport_codes = Airport.truncated_codes 20
+    @airport_codes = Airport.all.map(&:code)
     @search_dates = Flight.future_departures_dates
     @flights = Flight.search(params[:search]).includes(:from, :to)
   end
@@ -57,11 +57,12 @@ class FlightsController < ApplicationController
   # DELETE /flights/1
   # DELETE /flights/1.json
   def destroy
-    @flight.destroy
-    respond_to do |format|
-      format.html { redirect_to flights_url, notice: 'Flight was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to flights_url
+    #@flight.destroy
+    #respond_to do |format|
+    #  format.html { redirect_to flights_url, notice: 'Flight was successfully destroyed.' }
+    #  format.json { head :no_content }
+    #end
   end
 
   private
@@ -72,6 +73,6 @@ class FlightsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def flight_params
-      params.require(:search).permit(:from, :to, :passenger_count, :date)
+      params.permit(:from, :to, :passenger_count, :date)
     end
 end

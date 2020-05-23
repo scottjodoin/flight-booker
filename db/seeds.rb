@@ -35,7 +35,7 @@ print "-- seed flights "
 ActiveRecord::Base.transaction do  #speeds up transaction from 17.5s to 1.6s! Wow!
   20.times do |i|
     print "."
-    5.times do
+    40.times do
       flight = create_random_flight(date)
       flight.save
     end

@@ -11,7 +11,7 @@ class Flight < ApplicationRecord
   end
 
   def self.search(search)
-    return all if search.nil? or
+    return Flight.all if search.nil? or
     /^[A-Z]{3}/ !~ search[:to] or
     /^[A-Z]{3}/ !~ search[:from] or
     /^[0-9]+$/ !~ search[:passenger_count] or
@@ -19,8 +19,12 @@ class Flight < ApplicationRecord
 
     from_code = search[:from][0..2]
     to_code = search[:to][0..2]
-    a1 = Airport.find_by(code: from_code) if Airport.exists?(code: from_code)
-    a2 = Airport.find_by(code: to_code) if Airport.exists?(code: to_code)
+
+    return Flight.none unless Airport.exists?(code: from_code) and
+      Airport.exists?(code: to_code)
+    a1 = Airport.find_by(code: from_code) 
+    a2 = Airport.find_by(code: to_code)
+
     return self.where(from: a1, to: a2) if /^\d{4}-\d{2}-\d{2}$/ !~ search[:date]
 
     date_time = DateTime.parse search[:date]
