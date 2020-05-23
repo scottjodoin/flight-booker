@@ -1,5 +1,8 @@
 <%= simple_form_for :search, url: root_path, method: "GET", html: {
   class: 'form-inline' } do |f| %>
-  <%= f.input: :name, input_html: {value: ""} %>
+  <%= f.input :from, collection: @airport_codes %>
+  <%= f.input :to, collection: @airport_codes %>
+  <%= f.input :passenger_count, as: :integer, input_html: {min: 1, max: 10, value: 1} %>
+  <%= f.input :date, collection: @search_dates, include_blank: "(All)", required: false %>
   <%= f.submit "Search", class: "btn btn-primary" %>
 <% end %>

@@ -22,13 +22,13 @@ ActiveRecord::Schema.define(version: 2020_05_21_200519) do
 
   create_table "bookings", force: :cascade do |t|
     t.integer "flight_id"
-    t.integer "user_id"
+    t.integer "passenger_id"
     t.integer "cost"
     t.integer "paid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["flight_id"], name: "index_bookings_on_flight_id"
-    t.index ["user_id"], name: "index_bookings_on_user_id"
+    t.index ["passenger_id"], name: "index_bookings_on_passenger_id"
   end
 
   create_table "flights", force: :cascade do |t|
