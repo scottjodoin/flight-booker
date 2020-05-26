@@ -1,0 +1,15 @@
+<h2>Booking for <%= @booking.flight.to_s %></h2>
+
+<table style="text-align:center;width:30%">
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+  </tr>
+  <tr>
+  <% @booking.passengers.each do |passenger | %>
+    <tr>
+      <td><%= passenger.name %></td>
+      <td><%= passenger.email %></td>
+    </tr>
+  <% end %>
+</table>

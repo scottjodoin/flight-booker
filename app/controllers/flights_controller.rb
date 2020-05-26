@@ -65,6 +65,12 @@ class FlightsController < ApplicationController
     #end
   end
 
+  def book
+    passenger_count = params[:passenger_count].to_i
+    @flight = Flight.find params[:id]
+    @passengers = Array.new(passenger_count, @flight.passengers.build)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_flight
@@ -73,6 +79,6 @@ class FlightsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def flight_params
-      params.permit(:from, :to, :passenger_count, :date)
+      params.require(:flight).permit(:from, :to, :passenger_count, :date, passengers_attributes:[:id, :name, :email])
     end
 end

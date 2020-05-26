@@ -1,10 +1,10 @@
 class Flight < ApplicationRecord
   belongs_to :from, class_name: "Airport"
   belongs_to :to, class_name: "Airport"
-  has_many :bookings
+  has_many :bookings, inverse_of: :flight
   has_many :passengers, through: :bookings
-  accepts_nested_attributes_for :bookings
   scope :future_departures_dates, ->{ select("DISTINCT date(departure_time) AS date").where("departure_time > CURRENT_TIMESTAMP").map(&:date)}
+  
   def to_s
     "#{from.code} to #{to.code}. " +
     "#{departure_time.strftime("%b %e, %l:%M%P")}-#{arrival_time.strftime("%l:%M%P")}"
