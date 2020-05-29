@@ -1,0 +1,33 @@
+<!-- header -->
+<h2>Available Flights - <%=
+  "#{@search[:from][0..2]} to #{@search[:to][0..2]}" +
+  " for #{pluralize(@search[:passenger_count], "passenger")}"
+  %>
+  <% unless @search[:date].empty? %>
+    <%= "on #{@search[:date]}" %>
+  <% end %>
+  </h2>
+
+  <% if @flights.count == 0 %>
+    </p>Sorry, no flights based on search criteria!</p>
+  <% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="4"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @flights.each do |flight| %>
+      <tr>
+        <td><%= flight %></td>
+        <td><%= link_to 'Show', flight %></td>
+        <td><%= link_to 'Book', new_booking_path(flight_id: flight.id,
+          passenger_count: @search[:passenger_count]
+          ) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

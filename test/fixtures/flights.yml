@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  to: one
+  from: one
+  cost: 1
+  passenger_capacity: 1
+  datetime: 
+
+two:
+  to: two
+  from: two
+  cost: 1
+  passenger_capacity: 1
+  datetime: 

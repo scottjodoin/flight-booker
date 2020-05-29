@@ -1,0 +1,8 @@
+<p id="notice"><%= notice %></p>
+  <%= render "search" %>
+  
+  <% unless @search.nil? %>
+    <%= render "results"%>
+  <% end %>
+
+<br>
