@@ -15,8 +15,10 @@ class BookingsController < ApplicationController
      params_for_create[:passengers_attributes].each_pair do |i, passenger_info|
         @booking.passengers.build(passenger_info)
      end
-     @flight.save
-     redirect_to @booking
+     if (@flight.save)
+      redirect_to @booking
+      BookingMailer.with(booking: @booking).thank_you_email.deliver_later
+     end
   end
 
   def show
